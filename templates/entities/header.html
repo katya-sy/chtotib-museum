@@ -1,0 +1,30 @@
+{% load static %}
+<header class="flex flex-wrap justify-between items-center gap-x-8 gap-y-4 py-5 md:py-4 border-b border-b-(--accent) mb-[50px]">
+  <a class="" href="{% url 'index' %}">
+    <img class="flex-1 flex-grow flex-shrink-0" src="{% static 'img/logo.svg' %}" alt="Логотип">
+  </a>
+  <nav class="">
+    <ul class='flex flex-wrap items-baseline gap-x-8 gap-y-4'>
+      <li>
+        <a href='' class='nav-link'>
+          История развития
+        </a>
+      </li>
+      <li>
+        <a href='' class='nav-link'>
+          Традиции
+        </a>
+      </li>
+      <li>
+        <a href='' class='nav-link'>
+          Преподаватели
+        </a>
+      </li>
+      <li>
+        <a href='' class='nav-link'>
+          Выпускники
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
