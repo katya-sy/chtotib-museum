@@ -10,8 +10,11 @@
   <script src="{% static 'tailwind.js' %}"></script>
   <title>{% block title %}{% endblock %}</title>
 </head>
-<body class="bg-(--bg) max-w-[1332px] px-4 mx-auto">
-{% include 'entities/header.html' %}
-{% block content %}{% endblock %}
+<body class="bg-(--bg) max-w-[1332px] min-h-dvh flex flex-col justify-between gap-20 px-4 mx-auto">
+<div class="flex flex-col gap-[50px]">
+  {% include 'entities/header.html' %}
+  <main>{% block content %}{% endblock %}</main>
+</div>
+{% include 'entities/footer.html' %}
 </body>
 </html>
