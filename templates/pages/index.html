@@ -17,6 +17,10 @@
             src="{% static 'img/banner.jpg' %}" alt="Image">
       </div>
     </div>
-    <div></div>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5">
+      {% for section in sections %}
+        {% include "components/section_card.html" with title=section.title description=section.description icon=section.icon url_name=section.url_name %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

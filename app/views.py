@@ -2,4 +2,41 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'pages/index.html')
+    context = {
+        "sections": [
+            {
+                "id": 1,
+                "title": "История развития",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
+                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "icon": "history",
+                "url_name": "index"
+            },
+            {
+                "id": 2,
+                "title": "Традиции",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
+                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "icon": "traditions",
+                "url_name": "index"
+            },
+            {
+                "id": 3,
+                "title": "Преподаватели",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
+                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "icon": "teachers",
+                "url_name": "index"
+            },
+            {
+                "id": 4,
+                "title": "Выпускники",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
+                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "icon": "graduates",
+                "url_name": "index"
+            },
+        ]
+    }
+
+    return render(request, 'pages/index.html', context)
