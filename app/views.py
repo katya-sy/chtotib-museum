@@ -67,6 +67,10 @@ def index(request):
                       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
                       "url_name": "index", "img": "img/banner.jpg"},
                      ],
+        "images": [
+            "img/test.png", "img/banner.jpg", "img/test.png", "img/banner.jpg", "img/banner.jpg", "img/test.png",
+            "img/banner.jpg",
+        ]
     }
 
-    return render(request, 'pages/traditions.html', context)
+    return render(request, 'pages/article.html', context)

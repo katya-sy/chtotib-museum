@@ -8,3 +8,8 @@ var msnry = new Masonry( '.masonry', {
   horizontalOrder: true,
   percentPosition: true,
 });
+
+var msnry = new Masonry( '.gallery', {
+  // horizontalOrder: true,
+  percentPosition: true,
+});
