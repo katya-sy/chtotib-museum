@@ -36,7 +36,16 @@ def index(request):
                 "icon": "graduates",
                 "url_name": "index"
             },
-        ]
+        ],
+        "years": [{"title": "1950-е", "img": "img/banner.jpg"},
+                  {"title": "1950-е", "img": "img/banner.jpg"},
+                  {"title": "1950-е", "img": "img/banner.jpg"},
+                  {"title": "1950-е", "img": "img/banner.jpg"},
+                  {"title": "1950-е", "img": "img/banner.jpg"},
+                  {"title": "1950-е", "img": "img/banner.jpg"},
+                  {"title": "1950-е", "img": "img/banner.jpg"},
+
+                  ]
     }
 
-    return render(request, 'pages/index.html', context)
+    return render(request, 'pages/history.html', context)

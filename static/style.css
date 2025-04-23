@@ -21,6 +21,7 @@
 
 * {
   font-family: "Raleway", serif;
+  font-variant-numeric: lining-nums;
 }
 
 .nav-link {
