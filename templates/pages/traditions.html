@@ -4,7 +4,7 @@
 {% block content %}
   <div class="flex flex-col gap-16 md:gap-20">
     {% include 'components/text_block.html' with title="Традиции" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam." %}
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5">
+    <div class="masonry -m-2.5">
       {% for article in articles %}
         {% include "components/article_card.html" with article=article %}
       {% endfor %}

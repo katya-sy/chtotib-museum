@@ -72,8 +72,28 @@
   transform-origin: right;
 }
 
+.grid-sizer,
+.grid-item { width: 25%; }
+
+.grid-item {
+  padding: 10px;
+}
+
+@media (max-width: 1024px) {
+  .grid-sizer,
+  .grid-item { width: 33.333%; }
+}
+
 @media (max-width: 768px) {
   .nav-link {
     font-size: 16px;
   }
+
+  .grid-sizer,
+  .grid-item { width: 50%; }
+}
+
+@media (max-width: 375px) {
+  .grid-sizer,
+  .grid-item { width: 100%; }
 }
