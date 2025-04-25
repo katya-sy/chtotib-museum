@@ -95,3 +95,11 @@ class MainPageView(TemplateView):
         return context
 
 
+class SectionView(TemplateView):
+    template_name = 'pages/history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['section'] = Section.objects.get(slug=kwargs['slug'])
+        context['time_periods'] = TimePeriod.objects.all().order_by("start_year")
+        return context

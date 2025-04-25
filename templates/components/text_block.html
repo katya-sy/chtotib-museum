@@ -2,7 +2,8 @@
   <h1 class="font-medium text-xl md:text-2xl lg:text-3xl text-(--text)">
     {{ title|default:"" }}
   </h1>
-  <p class="md:text-lg text-(--text)">
-    {{ description|default:"" }}
-  </p>
+  <div>
+    {#<p class="md:text-lg text-(--text)"></p>#}
+    {{ description|safe }}
+  </div>
 </div>

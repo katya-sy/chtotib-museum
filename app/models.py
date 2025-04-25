@@ -1,3 +1,6 @@
+import os
+
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from pytils.translit import slugify
 from django_ckeditor_5.fields import CKEditor5Field
@@ -7,10 +10,17 @@ class Section(models.Model):
     name = models.CharField("Название раздела", max_length=20)
     description = CKEditor5Field("Описание раздела", max_length=255)
     slug = models.SlugField("Слаг", max_length=30, unique=True, blank=True)
+    icon = models.FileField("Иконка", upload_to='icons/',
+                             validators=[FileExtensionValidator(allowed_extensions=['svg'])])
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+
+        if self.icon:
+            filename, ext = os.path.splitext(self.icon.name)
+            new_name = slugify(filename) + ext
+            self.icon.name = os.path.join('icons', new_name)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -23,6 +33,8 @@ class Section(models.Model):
 
 class TimePeriod(models.Model):
     name = models.CharField("Период времени в десятилетиях", max_length=20)
+    image = models.ImageField("Изображение", upload_to='time_period/images/')
+    start_year = models.IntegerField("Начальный год")
     slug = models.SlugField("Слаг", max_length=120, unique=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -92,7 +104,7 @@ class Tradition(models.Model):
 
 class TraditionImage(models.Model):
     tradition = models.ForeignKey(Tradition, on_delete=models.CASCADE, related_name='images', verbose_name="Традиция")
-    image = models.ImageField("Изображение", upload_to='articles/images/')
+    image = models.ImageField("Изображение", upload_to='traditions/images/')
     cover = models.BooleanField("Обложка", default=False)
 
     def __str__(self):
