@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
+
+from app.models import MainPageContent
 
 
 def index(request):
@@ -75,4 +78,18 @@ def index(request):
 
     return render(request, 'pages/article.html', context)
 
+
+class MainPageView(TemplateView):
+    template_name = 'pages/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['main_page_content'] = MainPageContent.objects.get(pk=1)
+        except MainPageContent.DoesNotExist:
+            context['main_page_content'] = {
+                "title": "Добро пожаловать в музей ЧТОТиБ!",
+                "description": "Стены нашего техникума хранят обширную историю людей...",
+            }
+        return context
 

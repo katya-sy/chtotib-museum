@@ -105,11 +105,20 @@ class TraditionImage(models.Model):
 
 class MainPageContent(models.Model):
     title = models.CharField("Заголовок", max_length=100)
-    description = CKEditor5Field("Описание", max_length=255)
+    description = CKEditor5Field("Описание", max_length=1000)
     image = models.ImageField("Изображение", upload_to='main_page/images/')
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Контент главной страницы"
