@@ -74,3 +74,5 @@ def index(request):
     }
 
     return render(request, 'pages/article.html', context)
+
+
