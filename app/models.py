@@ -62,6 +62,9 @@ class Article(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    def get_cover_image(self):
+        return self.images.filter(cover=True).first()
+
     def __str__(self):
         return self.title
 
@@ -74,6 +77,11 @@ class ArticleImage(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='images', verbose_name="Статья")
     image = models.ImageField("Изображение", upload_to='articles/images/')
     cover = models.BooleanField("Обложка", default=False)
+
+    def save(self, *args, **kwargs):
+        if self.cover:
+            ArticleImage.objects.filter(article=self.article, cover=True).update(cover=False)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Изображение статьи {self.article.title}"

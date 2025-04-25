@@ -11,8 +11,7 @@
           <div class="relative flex items-center h-24">
             <div class="absolute left-1/2 w-2.5 h-px bg-(--accent) transform -translate-x-1/2
             {% if forloop.counter0|divisibleby:2 %}-translate-x-2.5{% else %}translate-x-0{% endif %}"></div>
-
-            <a href="{% url 'index' %}"
+            <a href="{% url "article_list" section.slug item.slug %}"
                class="absolute {% if forloop.counter0|divisibleby:2 %}right-1/2 mr-2.5{% else %}left-1/2 ml-2.5{% endif %} 
                   outline-none group"
                tabindex="0">

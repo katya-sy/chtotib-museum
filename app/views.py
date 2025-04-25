@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from app.models import *
 
@@ -103,3 +103,28 @@ class SectionView(TemplateView):
         context['section'] = Section.objects.get(slug=kwargs['slug'])
         context['time_periods'] = TimePeriod.objects.all().order_by("start_year")
         return context
+
+
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'pages/article_list.html'
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        time_period_slug = self.kwargs.get('time_period_slug')
+        section_slug = self.kwargs.get('slug')
+        return Article.objects.filter(section__slug=section_slug, time_period__slug=time_period_slug)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['section'] = Section.objects.get(slug=self.kwargs.get('slug'))
+        context['time_period'] = TimePeriod.objects.get(slug=self.kwargs.get('time_period_slug'))
+        return context
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'pages/article.html'
+    context_object_name = 'article'
+    slug_url_kwarg = 'article_slug'
+
