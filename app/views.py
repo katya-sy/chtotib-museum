@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from app.models import MainPageContent
+from app.models import *
 
 
 def index(request):
@@ -91,5 +91,7 @@ class MainPageView(TemplateView):
                 "title": "Добро пожаловать в музей ЧТОТиБ!",
                 "description": "Стены нашего техникума хранят обширную историю людей...",
             }
+        context['sections'] = Section.objects.all()
         return context
+
 

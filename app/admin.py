@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import *
 
 
-admin.site.register(Section)
 admin.site.register(TimePeriod)
 admin.site.register(Article)
 admin.site.register(ArticleImage)
@@ -17,3 +16,11 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(Section)
+class SingletonModelAdmin(admin.ModelAdmin):
+    def has_delete_permission(self, request, obj=None):
+        if obj and obj.pk <= 4:
+            return False
+        return super().has_delete_permission(request, obj)

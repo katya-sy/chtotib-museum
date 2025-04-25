@@ -5,7 +5,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 class Section(models.Model):
     name = models.CharField("Название раздела", max_length=20)
-    description = models.CharField("Описание раздела", max_length=255)
+    description = CKEditor5Field("Описание раздела", max_length=255)
     slug = models.SlugField("Слаг", max_length=30, unique=True, blank=True)
 
     def save(self, *args, **kwargs):
