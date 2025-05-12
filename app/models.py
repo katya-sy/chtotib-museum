@@ -52,6 +52,7 @@ class TimePeriod(models.Model):
 
 class Article(models.Model):
     title = models.CharField("Название статьи", max_length=100)
+    description = models.TextField("Краткое описание", max_length=200)
     content = CKEditor5Field("Контент статьи")
     section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name="Раздел")
     time_period = models.ForeignKey(TimePeriod, on_delete=models.CASCADE, verbose_name="Период времени")
@@ -93,9 +94,13 @@ class ArticleImage(models.Model):
 
 class Tradition(models.Model):
     title = models.CharField("Название традиции", max_length=100)
+    description = models.TextField("Краткое описание", max_length=200)
     content = CKEditor5Field("Контент традиции")
-    section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name="Раздел")
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name="Раздел", default=2)
     slug = models.SlugField("Слаг", max_length=120, unique=True, blank=True)
+
+    def get_cover_image(self):
+        return self.images.filter(cover=True).first()
 
     def save(self, *args, **kwargs):
         if not self.slug:

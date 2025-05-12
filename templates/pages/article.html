@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="gallery -m-2.5">
+    <div class="gallery -m-2.5 min-h-fit">
       {% for image in article.images.all %}
         {% include "components/gallery_image.html" with img=image %}
       {% endfor %}

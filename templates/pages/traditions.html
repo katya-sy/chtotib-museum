@@ -3,10 +3,10 @@
 {% block title %}Традиции{% endblock %}
 {% block content %}
   <div class="flex flex-col gap-16 md:gap-20">
-    {% include 'components/text_block.html' with title="Традиции" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam." %}
+    {% include 'components/text_block.html' with title="Традиции" description=section.description %}
     <div class="masonry -m-2.5">
       {% for article in articles %}
-        {% include "components/article_card.html" with article=article %}
+        {% include "components/tradition_card.html" with article=article %}
       {% endfor %}
     </div>
   </div>

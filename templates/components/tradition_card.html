@@ -5,13 +5,13 @@
     <div class="flex flex-col items-center gap-2 md:gap-4">
       <img src="{{ article.get_cover_image.image.url }}" alt="{{ article.title }}"
            class="w-full h-full max-h-[300px] md:max-h-[400px] object-cover rounded-xl border border-(--accent)">
-      <a href="{% url "article" article.section.slug article.time_period.slug article.slug %}">
+      <a href="{% url "tradition" article.slug %}">
         <h3 class="font-medium text-(--accent) text-lg md:text-xl lg:text-2xl text-center line-clamp-2">
           {{ article.title|default:"Название статьи" }}
         </h3>
       </a>
       <p class="max-md:text-sm text-(--text) line-clamp-4">
-        {{ article.description}}
+        {{ article.description }}
       </p>
     </div>
   </div>

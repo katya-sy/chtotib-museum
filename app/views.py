@@ -128,3 +128,20 @@ class ArticleDetailView(DetailView):
     context_object_name = 'article'
     slug_url_kwarg = 'article_slug'
 
+
+class TraditionListView(ListView):
+    model = Tradition
+    template_name = 'pages/traditions.html'
+    context_object_name = 'articles'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['section'] = Section.objects.get(slug="traditions")
+        return context
+
+
+class TraditionDetailView(DetailView):
+    model = Tradition
+    template_name = 'pages/article.html'
+    context_object_name = 'article'
+    slug_url_kwarg = 'article_slug'

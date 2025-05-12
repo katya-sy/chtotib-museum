@@ -1,9 +1,6 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Tradition)
-admin.site.register(TraditionImage)
-
 
 @admin.register(MainPageContent)
 class SingletonModelAdmin(admin.ModelAdmin):
@@ -62,12 +59,12 @@ class ArticleImageInline(admin.TabularInline):
     fields = ('image', 'cover')
     readonly_fields = ('article',)
 
-    def preview(self, obj):
-        if obj.image:
-            from django.utils.html import format_html
-            return format_html('<img src="{}" height="100" />', obj.image.url)
-        return "-"
-    preview.short_description = "Превью"
+    # def preview(self, obj):
+    #     if obj.image:
+    #         from django.utils.html import format_html
+    #         return format_html('<img src="{}" height="100" />', obj.image.url)
+    #     return "-"
+    # preview.short_description = "Превью"
 
 
 @admin.register(Article)
@@ -79,16 +76,18 @@ class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
-@admin.register(ArticleImage)
-class ArticleImageAdmin(admin.ModelAdmin):
-    list_display = ('article', 'preview', 'cover')
-    list_filter = ('article', 'cover')
-    readonly_fields = ('preview',)
+class TraditionImageInline(admin.TabularInline):
+    model = TraditionImage
+    extra = 1
+    fields = ('image', 'cover')
+    readonly_fields = ('tradition',)
 
-    def preview(self, obj):
-        if obj.image:
-            from django.utils.html import format_html
-            return format_html('<img src="{}" height="100" />', obj.image.url)
-        return "-"
-    preview.short_description = "Превью"
+
+@admin.register(Tradition)
+class TraditionAdmin(admin.ModelAdmin):
+    inlines = [TraditionImageInline]
+    list_display = ('title',)
+    search_fields = ('title', 'content')
+    prepopulated_fields = {'slug': ('title',)}
+    exclude = ('section',)
 
