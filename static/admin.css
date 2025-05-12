@@ -31,3 +31,7 @@
   opacity: 0;
   color: #002b58;
 }
+
+.login-logo {
+  filter: invert();
+}
