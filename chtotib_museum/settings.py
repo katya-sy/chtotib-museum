@@ -62,6 +62,34 @@ CKEDITOR_5_CONFIGS = {
     },
 }
 
+JAZZMIN_SETTINGS = {
+    "theme": "light",
+    "custom_css": "admin.css",
+
+    "theme_color": "#A63A3A",
+    "dark_mode_theme": True,
+
+    "site_logo": "img/admin-logo.svg",
+    "site_header": "Админ-панель",
+    "welcome_sign": "Добро пожаловать!",
+    "site_title": "Администрирование",
+    "site_logo_classes": "img-square",
+    "site_brand": ".",
+
+    "navigation_expanded": True,
+    "show_sidebar": True,
+
+    "icons": {
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "app.Tradition": "fas fa-book",
+        "app.Section": "fas fa-folder-tree",
+        "app.TimePeriod": "fas fa-hourglass-half",
+        "app.Article": "fas fa-newspaper",
+        "app.MainPageContent": "fas fa-home",
+    },
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

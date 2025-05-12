@@ -1,0 +1,33 @@
+* {
+  font-family: "Raleway", serif;
+  font-variant-numeric: lining-nums;
+}
+
+.content, .content-wrapper {
+  background-color: #f8faff;
+}
+
+.main-header {
+  background-color: #f0f4fc;
+}
+
+.card, .timeline-header {
+  background-color: #f0f4fc;
+}
+
+.timeline-body {
+  background-color: #f0f4fc;
+}
+
+.elevation-3 {
+  box-shadow: none !important;
+}
+
+.sidebar, .main-sidebar {
+  background-color: #1c232a;
+}
+
+.brand-text {
+  opacity: 0;
+  color: #002b58;
+}
