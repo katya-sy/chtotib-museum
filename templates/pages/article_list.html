@@ -3,6 +3,7 @@
 {% block title %}{{ section.name }}{{ time_period.name }}{% endblock %}
 {% block content %}
   <div class="flex flex-col gap-16 md:gap-20">
+    {% include 'components/breadcrumbs.html' with paths=paths %}
     {% include 'components/text_block.html' with title=time_period.name %}
     <div class="masonry -m-2.5">
       {% for article in articles %}

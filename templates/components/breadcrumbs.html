@@ -1,0 +1,25 @@
+<nav class='flex flex-wrap items-center gap-2'>
+  <div class='flex items-center gap-2'>
+    <a href='{% url 'index' %}' class='nav-link text-lg normal-case!'>
+      Главная
+    </a>
+    <div class="text-(--text)"> ></div>
+  </div>
+  {% for path in breadcrumbs %}
+    {% if forloop.last %}
+      <span class='text-lg font-medium text-blue-dark'>
+        {{ path.label }}
+      </span>
+    {% else %}
+      <div class='flex items-center gap-2'>
+        <a
+            href="{{ path.url }}"
+            class='nav-link text-lg normal-case!'
+        >
+          {{ path.label }}
+        </a>
+        <div class="text-(--text)"> ></div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</nav>

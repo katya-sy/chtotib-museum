@@ -2,81 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView
 
 from app.models import *
-
-
-def index(request):
-    context = {
-        "sections": [
-            {
-                "id": 1,
-                "title": "История развития",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
-                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-                "icon": "history",
-                "url_name": "index"
-            },
-            {
-                "id": 2,
-                "title": "Традиции",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
-                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-                "icon": "traditions",
-                "url_name": "index"
-            },
-            {
-                "id": 3,
-                "title": "Преподаватели",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
-                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-                "icon": "teachers",
-                "url_name": "index"
-            },
-            {
-                "id": 4,
-                "title": "Выпускники",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
-                               "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-                "icon": "graduates",
-                "url_name": "index"
-            },
-        ],
-        "years": [{"title": "1950-е", "img": "img/banner.jpg"},
-                  {"title": "1950-е", "img": "img/banner.jpg"},
-                  {"title": "1950-е", "img": "img/banner.jpg"},
-                  {"title": "1950-е", "img": "img/banner.jpg"},
-                  {"title": "1950-е", "img": "img/banner.jpg"},
-                  {"title": "1950-е", "img": "img/banner.jpg"},
-                  {"title": "1950-е", "img": "img/banner.jpg"},
-                  ],
-        "articles": [{"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/test.png"},
-                     {"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/banner.jpg"},
-                     {"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/banner.jpg"},
-                     {"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/banner.jpg"},
-                     {"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/test.png"},
-                     {"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/test.png"},
-                     {"title": "Статья",
-                      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. ",
-                      "url_name": "index", "img": "img/banner.jpg"},
-                     ],
-        "images": [
-            "img/test.png", "img/banner.jpg", "img/test.png", "img/banner.jpg", "img/banner.jpg", "img/test.png",
-            "img/banner.jpg",
-        ]
-    }
-
-    return render(request, 'pages/article.html', context)
+from app.utils.breadcrumbs import get_breadcrumbs
 
 
 class MainPageView(TemplateView):
@@ -102,6 +28,17 @@ class SectionView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['section'] = Section.objects.get(slug=kwargs['slug'])
         context['time_periods'] = TimePeriod.objects.all().order_by("start_year")
+
+        path = self.request.path
+
+        parts = [p for p in path.split('/') if p]
+
+        model_by_index = {
+            0: Section
+        }
+
+        context['breadcrumbs'] = get_breadcrumbs(model_by_index, parts)
+        context['path'] = path
         return context
 
 
@@ -119,6 +56,18 @@ class ArticleListView(ListView):
         context = super().get_context_data(**kwargs)
         context['section'] = Section.objects.get(slug=self.kwargs.get('slug'))
         context['time_period'] = TimePeriod.objects.get(slug=self.kwargs.get('time_period_slug'))
+
+        path = self.request.path
+
+        parts = [p for p in path.split('/') if p]
+
+        model_by_index = {
+            0: Section,
+            1: TimePeriod
+        }
+
+        context['breadcrumbs'] = get_breadcrumbs(model_by_index, parts)
+        context['path'] = path
         return context
 
 
@@ -127,6 +76,22 @@ class ArticleDetailView(DetailView):
     template_name = 'pages/article.html'
     context_object_name = 'article'
     slug_url_kwarg = 'article_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        path = self.request.path
+
+        parts = [p for p in path.split('/') if p]
+
+        model_by_index = {
+            0: Section,
+            1: TimePeriod,
+            2: Article
+        }
+
+        context['breadcrumbs'] = get_breadcrumbs(model_by_index, parts)
+        context['path'] = path
+        return context
 
 
 class TraditionListView(ListView):
@@ -137,11 +102,37 @@ class TraditionListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['section'] = Section.objects.get(slug="traditions")
+
+        path = self.request.path
+
+        parts = [p for p in path.split('/') if p]
+
+        model_by_index = {
+            0: Section
+        }
+
+        context['breadcrumbs'] = get_breadcrumbs(model_by_index, parts)
+        context['path'] = path
         return context
 
 
 class TraditionDetailView(DetailView):
     model = Tradition
-    template_name = 'pages/article.html'
+    template_name = 'pages/tradition.html'
     context_object_name = 'article'
     slug_url_kwarg = 'article_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        path = self.request.path
+
+        parts = [p for p in path.split('/') if p]
+
+        model_by_index = {
+            0: Section,
+            1: Tradition
+        }
+
+        context['breadcrumbs'] = get_breadcrumbs(model_by_index, parts)
+        context['path'] = path
+        return context
