@@ -17,10 +17,19 @@ class Section(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
 
+        is_new = self._state.adding
+
+        if not is_new:
+            old_instance = Section.objects.get(pk=self.pk)
+
         if self.icon:
-            filename, ext = os.path.splitext(self.icon.name)
-            new_name = slugify(filename) + ext
-            self.icon.name = os.path.join('icons', new_name)
+            if is_new or (not is_new and old_instance.icon != self.icon):
+                filename, ext = os.path.splitext(self.icon.name)
+                new_name = slugify(filename) + ext
+                self.icon.name = os.path.join('icons', new_name)
+            else:
+                self.icon = old_instance.icon
+
         super().save(*args, **kwargs)
 
     def __str__(self):
