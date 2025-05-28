@@ -63,7 +63,8 @@
   background: white;
 }
 
-.form-row div .flex-container input,
+.form-row div .flex-container input[type="text"],
+.form-row div .flex-container input[type="number"],
 .form-row div .flex-container textarea,
 .form-row div .flex-container select {
   padding: 8px 16px;
@@ -89,4 +90,17 @@
 .errorlist {
   margin-left: 0 !important;
   padding-left: 0 !important;
+}
+
+.file-upload {
+  font-weight: 400 !important;
+}
+
+input[type="file"] {
+  border-radius: 8px;
+  padding: 4px;
+  background-color: #2b7fff;
+  width: max-content;
+  max-width: max-content;
+  color: white;
 }
