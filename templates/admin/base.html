@@ -60,10 +60,10 @@
                   {#                    <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /#}
                   {#                  {% endif %}#}
                   {#                {% endif %}#}
-                  {% if user.has_usable_password %}
-                    <a class="custom_btn bg-white text-blue-800"
-                       href="{% url 'admin:password_change' %}">{% translate 'Изменить пароль' %}</a>
-                  {% endif %}
+                  {#                  {% if user.has_usable_password %}#}
+                  {#                    <a class="custom_btn bg-white text-blue-800"#}
+                  {#                       href="{% url 'admin:password_change' %}">{% translate 'Изменить пароль' %}</a>#}
+                  {#                  {% endif %}#}
                   <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
                     {% csrf_token %}
                     <button class="custom_btn bg-red-500 text-white" type="submit">{% translate 'Выйти' %}</button>
@@ -91,28 +91,31 @@
   {% endif %}
 
   <div class="main grid grid-cols-6" id="main">
-    {% if not is_popup and is_nav_sidebar_enabled %}
+    {% if not is_popup and is_nav_sidebar_enabled and user.is_staff %}
       <div class="p-4 bg-blue-800 fixed top-0 left-0 bottom-0 pt-[72px] w-1/6">
         {% block nav-sidebar %}
           {% include "admin/nav_sidebar.html" %}
         {% endblock %}
       </div>
+      <div></div>
     {% endif %}
-    <div></div>
     <main id="content-start" class="col-span-5 p-5 relative" tabindex="-1">
       {% block messages %}
         {% if messages %}
           <ul class="messagelist text-sm absolute top-5 right-5 max-w-[300px]">{% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }} p-2 rounded-xl border border-blue-200 text-blue-800"{% endif %}>{{ message|capfirst }}</li>
+            <li{% if message.tags %}
+              class="{{ message.tags }} p-2 rounded-xl border border-blue-200 text-blue-800"{% endif %}>{{ message|capfirst }}</li>
           {% endfor %}</ul>
         {% endif %}
       {% endblock messages %}
       <!-- Content -->
       <div id="content" class="{% block coltype %}colM{% endblock %}">
         {% block pretitle %}{% endblock %}
-        {% block content_title %}{% if title %}<h1 class="text-2xl font-medium mb-5 text-blue-800">{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content_title %}{% if title %}<h1 class="text-2xl font-medium mb-5 text-blue-800">{{ title }}</h1>
+        {% endif %}{% endblock %}
         {% block object-tools %}{% endblock %}
-        {% block content_subtitle %}{% if subtitle %}<h2 class="text-xl font-medium mb-5 text-blue-800">{{ subtitle }}</h2>{% endif %}{% endblock %}
+        {% block content_subtitle %}{% if subtitle %}
+          <h2 class="text-xl font-medium mb-5 text-blue-800">{{ subtitle }}</h2>{% endif %}{% endblock %}
         {% block content %}
           {{ content }}
         {% endblock %}
