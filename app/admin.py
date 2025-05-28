@@ -20,6 +20,11 @@ class SingletonModelAdmin(admin.ModelAdmin):
         return "-"
     preview.short_description = "Превью"
 
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.model._meta.verbose_name
+        return super().changelist_view(request, extra_context=extra_context)
+
 
 @admin.register(Section)
 class SingletonModelAdmin(admin.ModelAdmin):
@@ -43,6 +48,11 @@ class SingletonModelAdmin(admin.ModelAdmin):
             kwargs['widget'] = forms.ClearableFileInput(attrs={'accept': '.svg'})
         return super().formfield_for_dbfield(db_field, request, **kwargs)
 
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.model._meta.verbose_name_plural
+        return super().changelist_view(request, extra_context=extra_context)
+
 
 @admin.register(TimePeriod)
 class SingletonModelAdmin(admin.ModelAdmin):
@@ -51,6 +61,11 @@ class SingletonModelAdmin(admin.ModelAdmin):
         if 'slug' in fields:
             fields.remove('slug')
         return fields
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.model._meta.verbose_name_plural
+        return super().changelist_view(request, extra_context=extra_context)
 
 
 class ArticleImageInline(admin.TabularInline):
@@ -75,6 +90,11 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
 
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.model._meta.verbose_name_plural
+        return super().changelist_view(request, extra_context=extra_context)
+
 
 class TraditionImageInline(admin.TabularInline):
     model = TraditionImage
@@ -90,4 +110,9 @@ class TraditionAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
     exclude = ('section',)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.model._meta.verbose_name_plural
+        return super().changelist_view(request, extra_context=extra_context)
 

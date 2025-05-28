@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% if app_list %}
+  {% for app in app_list %}
+    <ul class="app-{{ app.app_label }} {% if app.app_label == 'auth' %}hidden{% endif %} module{% if app.app_url in request.path|urlencode %} current-app{% endif %} grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+      {% for model in app.models %}
+        {% with model_name=model.object_name|lower %}
+          <a class="model-
+              {{ model_name }} text-white bg-blue-500 flex items-center justify-center aspect-[2/1]
+            p-2 rounded-3xl text-lg w-full font-medium max-h-[150px]" href="{{ model.admin_url }}"
+              {% if model.admin_url in request.path|urlencode %}
+             aria-current="page"{% endif %}>{{ model.name }}</a>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+{% else %}
+  <p>У Вас нет прав</p>
+{% endif %}
