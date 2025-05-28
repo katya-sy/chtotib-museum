@@ -110,9 +110,9 @@
       <!-- Content -->
       <div id="content" class="{% block coltype %}colM{% endblock %}">
         {% block pretitle %}{% endblock %}
-        {% block content_title %}{% if title %}<h1 class="text-2xl font-medium mb-10 text-blue-800">{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content_title %}{% if title %}<h1 class="text-2xl font-medium mb-5 text-blue-800">{{ title }}</h1>{% endif %}{% endblock %}
         {% block object-tools %}{% endblock %}
-        {% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}
+        {% block content_subtitle %}{% if subtitle %}<h2 class="text-xl font-medium mb-5 text-blue-800">{{ subtitle }}</h2>{% endif %}{% endblock %}
         {% block content %}
           {{ content }}
         {% endblock %}
