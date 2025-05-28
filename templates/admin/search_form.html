@@ -12,8 +12,8 @@
           <button class="custom_btn bg-blue-500 text-white" type="submit">Найти</button>
         </div>
         {% if show_result_count %}
-          <p class="small quiet flex items-center gap-4 justify-between my-2 text-sm">{% blocktranslate count counter=cl.result_count %}{{ counter }} результат
-            {% plural %}{{ counter }} результатов{% endblocktranslate %} <a class="text-red-500 text-xs" href="?">Сбросить поиск</a></p>
+          <p class="small quiet flex items-center gap-4 justify-between my-2 text-sm text-gray-500">{% blocktranslate count counter=cl.result_count %}{{ counter }} результат
+            {% plural %}{{ counter }} результатов{% endblocktranslate %} поиска <a class="text-red-500 text-xs" href="?">Сбросить поиск</a></p>
         {% endif %}
         {% for pair in cl.params.items %}
           {% if pair.0 != search_var %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">{% endif %}

@@ -16,9 +16,9 @@ class SingletonModelAdmin(admin.ModelAdmin):
     def preview(self, obj):
         if obj.image:
             from django.utils.html import format_html
-            return format_html('<img src="{}" height="100" />', obj.image.url)
+            return format_html('<img src="{}" height="100" class="max-h-20" />', obj.image.url)
         return "-"
-    preview.short_description = "Превью"
+    preview.short_description = "Изображение"
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -31,6 +31,8 @@ class SingletonModelAdmin(admin.ModelAdmin):
     list_display = ('name',)
     list_filter = ('name',)
     search_fields = ('name',)
+
+    actions = None
 
     def has_delete_permission(self, request, obj=None):
         if obj and obj.pk <= 4:
@@ -56,6 +58,8 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
 @admin.register(TimePeriod)
 class SingletonModelAdmin(admin.ModelAdmin):
+    actions = None
+
     def get_fields(self, request, obj=None):
         fields = super().get_fields(request, obj)
         if 'slug' in fields:
@@ -89,11 +93,17 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ('section', 'time_period')
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
+    actions = None
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['title'] = self.model._meta.verbose_name_plural
         return super().changelist_view(request, extra_context=extra_context)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "section":
+            kwargs["queryset"] = Section.objects.exclude(id=2)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class TraditionImageInline(admin.TabularInline):
@@ -110,6 +120,7 @@ class TraditionAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
     exclude = ('section',)
+    actions = None
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
