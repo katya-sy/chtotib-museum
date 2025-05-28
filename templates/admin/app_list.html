@@ -1,0 +1,40 @@
+{% load i18n %}
+
+{% if app_list %}
+  {% for app in app_list %}
+    <ul class="app-{{ app.app_label }} {% if app.app_label == 'auth' %}hidden{% endif %} module{% if app.app_url in request.path|urlencode %} current-app{% endif %} flex flex-col gap-2">
+      {% for model in app.models %}
+        {% with model_name=model.object_name|lower %}
+          {#<div id="{{ app.app_label }}-{{ model_name }}">#}
+            <a class="model-
+                {{ model_name }}{% if model.admin_url in request.path|urlencode %} current-model text-blue-800 bg-blue-100{% else %} text-gray-500 bg-white{% endif %}
+            p-2 rounded-xl w-full text-sm font-medium" href="{{ model.admin_url }}"
+                {% if model.admin_url in request.path|urlencode %}
+               aria-current="page"{% endif %}>{{ model.name }}</a>
+          {#</div>#}
+
+          {#            {% if model.add_url %}#}
+          {#              <td><a href="{{ model.add_url }}" class="addlink"#}
+          {#                     aria-describedby="{{ app.app_label }}-{{ model_name }}">{% translate 'Add' %}</a></td>#}
+          {#            {% else %}#}
+          {#              <td></td>#}
+          {#            {% endif %}#}
+
+          {#            {% if model.admin_url and show_changelinks %}#}
+          {#              {% if model.view_only %}#}
+          {#                <td><a href="{{ model.admin_url }}" class="viewlink"#}
+          {#                       aria-describedby="{{ app.app_label }}-{{ model_name }}">{% translate 'View' %}</a></td>#}
+          {#              {% else %}#}
+          {#                <td><a href="{{ model.admin_url }}" class="changelink"#}
+          {#                       aria-describedby="{{ app.app_label }}-{{ model_name }}">{% translate 'Change' %}</a></td>#}
+          {#              {% endif %}#}
+          {#            {% elif show_changelinks %}#}
+          {#              <td></td>#}
+          {#            {% endif %}#}
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+{% else %}
+  <p>У Вас нет прав</p>
+{% endif %}

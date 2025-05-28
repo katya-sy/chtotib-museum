@@ -35,3 +35,23 @@
 .login-logo {
   filter: invert();
 }
+
+.custom_btn {
+  padding: 8px 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  width: max-content;
+  cursor: pointer;
+  flex-wrap: nowrap;
+}
+
+.input {
+  padding: 8px 16px;
+  border-radius: 16px;
+  border: solid 1px darkgrey;
+  background: white;
+  width: 100%;
+}
