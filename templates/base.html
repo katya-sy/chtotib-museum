@@ -7,10 +7,13 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'aos.css' %}">
   <script src="{% static 'js/tailwind.js' %}"></script>
   <script src="{% static 'js/masonry.pkgd.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
   <script defer src="{% static 'js/masonry-init.js' %}"></script>
   <script defer src="{% static 'js/read-more.js' %}"></script>
+
   <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="bg-(--bg) max-w-[1332px] min-h-dvh flex flex-col justify-between gap-20 px-4 mx-auto">
@@ -19,5 +22,13 @@
   <main>{% block content %}{% endblock %}</main>
 </div>
 {% include 'components/footer.html' %}
+
+<script>
+  AOS.init({
+    once: true,
+    duration: 800,
+    easing: 'ease-out-sine',
+  });
+</script>
 </body>
 </html>

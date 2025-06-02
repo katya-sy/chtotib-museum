@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "Raleway";
+  src: url("./fonts/Raleway-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("./fonts/Raleway-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+}
+
 * {
   font-family: "Raleway", serif;
   font-variant-numeric: lining-nums;

@@ -2,6 +2,11 @@ const readMoreButton = document.getElementById('readMoreButton');
 const readMoreText = document.getElementById('readMoreText');
 const readMoreGradient = document.getElementById('readMoreGradient');
 
+if(readMoreText.offsetHeight < 350) {
+  readMoreButton.style.display = 'none'
+  readMoreGradient.style.display = 'none'
+}
+
 readMoreButton.addEventListener('click', function () {
   const isExpanded = this.getAttribute('aria-expanded') === 'true';
 

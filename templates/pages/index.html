@@ -4,12 +4,12 @@
 {% block content %}
   <div class="flex flex-col gap-16 md:gap-20">
     <div class="grid min-h-max grid-cols-1 md:grid-cols-12 items-center justify-between gap-5">
-      <div class="md:col-span-5 flex flex-col gap-8 md:gap-10 ck-content">
+      <div data-aos="fade-right" class="md:col-span-5 flex flex-col gap-8 md:gap-10 ck-content">
         <h1 class="font-medium text-2xl md:text-3xl lg:text-4xl text-(--text)">{{ main_page_content.title }}</h1>
         {#<p class="md:text-xl text-(--text)"></p>#}
         {{ main_page_content.description|safe }}
       </div>
-      <div class="md:col-start-7 md:col-end-13 p-2.5 bg-(--beige)">
+      <div data-aos="fade-left"  class="md:col-start-7 md:col-end-13 p-2.5 bg-(--beige)">
         <img
             class="object-cover max-h-[600px] border border-(--accent) outline outline-(--accent) outline-offset-10 rounded-xl w-full"
             src="{{ main_page_content.image.url }}" alt="{{ main_page_content.title }}">
@@ -17,7 +17,7 @@
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5">
       {% for section in sections %}
-        {% include "components/section_card.html" with title=section.name description=section.description icon=section.icon url_name=section.slug %}
+        {% include "components/section_card.html" with title=section.name description=section.description icon=section.icon url_name=section.slug index=forloop.counter0 %}
       {% endfor %}
     </div>
   </div>
