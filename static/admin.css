@@ -127,3 +127,40 @@ input[type="file"] {
   width: 100% !important;
   font-size: 16px;
 }
+
+.addlink {
+  padding: 4px !important;
+  border-radius: 8px !important;
+  max-width: max-content;
+  width: max-content !important;
+  cursor: pointer !important;
+  flex-wrap: nowrap !important;
+  background-color: #2b7fff;
+  color: white;
+}
+
+.inline-deletelink {
+  display: none !important;
+}
+
+tr.form-row {
+  border-bottom: #bedbff 1px solid;
+}
+
+tr.form-row td {
+  padding: 10px 0 !important;
+}
+
+.field-cover, .delete {
+  text-align: center;
+}
+
+th {
+  font-weight: 500;
+  background-color: #51a2ff;
+  color: white;
+}
+
+th.column-image {
+  text-align: left;
+}
